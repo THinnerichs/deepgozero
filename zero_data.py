@@ -8,7 +8,7 @@ import logging
 from utils import NAMESPACES, Ontology, get_goplus_defs
 from collections import Counter
 import json
-from deepgoel import load_normal_forms
+from deepgozero import load_normal_forms
 
 logging.basicConfig(level=logging.INFO)
 
@@ -49,7 +49,6 @@ def main(data_file, out_file):
             eval_terms[ns].append(go_id)
         elif annots[go_id] == 0 and go_id in zero_classes:
             print(go_id, ns, 0, go.get_term(go_id)['name'], go_id in defins)
-    return
     with open('data/eval_terms.json', 'w') as f:
         f.write(json.dumps(eval_terms))
     df = pd.read_pickle(data_file)

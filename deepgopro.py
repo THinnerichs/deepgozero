@@ -12,8 +12,6 @@ from torch.utils.data import DataLoader, IterableDataset, TensorDataset
 from itertools import cycle
 import math
 from aminoacids import to_onehot, MAXLEN
-from dgl.nn import GraphConv
-import dgl
 from torch_utils import FastTensorDataLoader
 import csv
 from torch.optim.lr_scheduler import MultiStepLR

@@ -51,7 +51,13 @@ def main(data_root, ont, batch_size, epochs, load, device):
     nf1, nf2, nf3, nf4, relations, zero_classes = load_normal_forms(
         go_file, terms_dict)
     n_rels = len(relations)
+    print('n_rels', n_rels)
+
     n_zeros = len(zero_classes)
+    print('n_zeros', n_zeros)
+
+    print('relations', relations)
+    raise Exception
 
     
     normal_forms = nf1, nf2, nf3, nf4
@@ -156,7 +162,6 @@ def main(data_root, ont, batch_size, epochs, load, device):
         roc_auc = compute_roc(test_labels, preds)
         print(f'Test Loss - {test_loss}, AUC - {roc_auc}')
 
-        
     preds = list(preds)
     # Propagate scores using ontology structure
     for i, scores in enumerate(preds):
