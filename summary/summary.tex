@@ -24,25 +24,45 @@ Input: Some Ontology
 	\mathcal{O}&=(\Sigma,\mathcal{T,A})\\
 	\Sigma &=(\mathbf{C,R,I})\\
 	\mathcal{T} &= \mathcal{T}_{NF1} \cup \mathcal{T}_{NF2} \cup \mathcal{T}_{NF3} \cup \mathcal{T}_{NF4}\\
-	\mathcal{A}&=\{a:C\}
+	\mathcal{A}&=\{a:C\} \cup \{ R(x,y) | ... \}
 \end{align*}
 
 \begin{enumerate}
-	\item A Box elimination:
+	\item Optional: A Box elimination:
 	\begin{align*}
 		\mathbf{C'}:=& \mathbf{C} \cup \mathbf{I}\\
 		\mathcal{T}':=& \mathcal{T} \cup\{\{a\}\sqsubseteq\exists r.\{b\}|\forall r(a,b)\in \mathcal{A}\}\\
 		&\cup \{\{a\}\sqsubseteq C| \forall (a:C)\in\mathcal{A}\}\\
 		(\mathcal{A}':=&\emptyset)
 	\end{align*}
-	\item Add new individuals for each concept:
-	\begin{align*}
-		\mathbf{I}&:=\{c_C | C\in\mathbf{C'}\}\\
-	\end{align*}
-	\item Introduce mappings/functions (learnable neural nets) (see \cite{LTN}).\\
+
+        \item Explicit description of Fuzzy Semantics for DL
+        \item distinction of $f_{embed}$ and $f_{fuzz}$; choice of
+          parameters ($n$, $m$)
+        \item characterization of model theory: assumption of UNA and
+          DCA vs non-DCA semantics (and non-UNA)
+        \item infinite domain of discourse ($\Delta^\omega$) as most
+          general case due to (a) existence of infinite models and (b)
+          Loewenheim-Skolem (downwards); describe combination of
+          $f_{embed}$ and $f_{fuzz}$ to generate (fuzzy)
+          interpretations for all formulas; potentially use projection
+          relations for relations;
+        \item investigation of limiting $\omega$ to finite subsets
+        \item describe which operations are suitable in latent space
+          and which explicit on fuzzy sets
+        
+      % \item Potentially: Add new individuals for each concept:
+      %   \begin{align*}
+      %     \mathbf{I'}&:=\{c_C | C\in\mathbf{C'}\}\\
+      %   \end{align*}
+      %   Not necessary --- but way to get ``witnesses'' based on which
+      %   we represent fuzzy extensions\\
+      %   needs some thought on ``unsatisfiable'' concepts
+
+      \item Introduce mappings/functions (learnable neural nets) (see \cite{LTN}).\\
 	We basically embed all individuals into $\mathbb{R}^n$, and train neural nets to decide and describe fuzzy affiliation to concept. $n$ is dimensionality of latent space and thus a hyperparameter.
 	\begin{itemize}
-		\item $f_{emb}:\mathbf{C}'\cup \mathbf{I}\rightarrow\mathbb{R}^n$ : Mapping all individuals into latent space
+		\item $f_{emb}:\mathbf{C}\cup \mathbf{I}\rightarrow\mathbb{R}^n$ : Mapping all individuals into latent space
 		\item $f_{skol}:\mathbb{R}^n\rightarrow\mathbb{R}^n$ : Skolemizing function, as we only consider EL++ only relevant for normal forms $C\sqsubseteq\exists R.D$ and $\exists R.C\sqsubseteq D$. We make $f_{skol}(c_C)$ dependent on both $f_{emb}(c_D)$ and the relation $R$, which should suffice through axiomatization theorem?
 		\item $f_{class}:\mathbb{R}^n\rightarrow [0,1]^{|C'|}$: describes for all points in $\mathbb{R}^n$ its fuzzy association with each concept:
 		\begin{equation*}
@@ -102,3 +122,8 @@ Questions for Tobias:
 
 
 \end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
